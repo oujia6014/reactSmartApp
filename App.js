@@ -1,49 +1,101 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React from 'react';
+import { createStackNavigator,createBottomTabNavigator } from 'react-navigation';
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import TabComponent from './src/component/TabComponent'
+import Home from './src/pages/home/Home'
+import User from './src/pages/user/User'
+import Login from './src/pages/public/Login'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+// import Icon from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
+const HomeStack = createStackNavigator({
+  Home: Home,
+  Login: Login,
 });
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
+const UsersStack = createStackNavigator({
+  User: User,
+  Login: Login,
+});
+
+HomeStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
   }
-}
+  return {
+    tabBarVisible,
+  };
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+UsersStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarVisible,
+  };
+};
+
+/**
+ * Tab点击跳转调用的公共方法
+ */
+const route = (navigation) => {
+  if (!navigation.isFocused()) {
+      navigation.navigate(navigation.state.routeName, {
+          title: navigation.state.routeName
+      })
+  }
+};
+
+export default createBottomTabNavigator(
+  {
+    主页:{
+      screen: HomeStack,
+      navigationOptions: ({navigation}) => ({
+        tabBarLabel: '主页',
+        tabBarIcon: ({tintColor}) => (
+            <FontAwesome
+                name={'wpforms'}
+                size={20}
+                color={tintColor}
+            />
+        ),
+        tabBarOnPress: () => {
+          // navigation.navigate("Home")
+          route(navigation)
+        }
+      }),
+    },
+    用户:{
+      screen: UsersStack,
+      navigationOptions: ({navigation}) => ({
+        tabBarLabel: '用户',
+        tabBarIcon: ({tintColor}) => (
+            <FontAwesome
+                name={'wpforms'}
+                size={20}
+                color={tintColor}
+            />
+        ),
+        tabBarOnPress: () => {
+          // navigation.navigate("User")
+          route(navigation)
+        }
+      }),
+    }
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  {
+    tabBarComponent: TabComponent,
+    tabBarOptions: {
+      activeTintColor: '#FE6822',
+      inactiveTintColor: 'gray',
+      showIcon: true
+    },
+    
+  }
+);
