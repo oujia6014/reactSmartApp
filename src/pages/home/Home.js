@@ -1,6 +1,7 @@
 
 import React, {Component} from 'react';
-import {View,Button} from 'react-native';
+import {View} from 'react-native';
+import { Button } from 'react-native-elements'
 class Home extends Component {
     static navigationOptions = {
       title:'主页',
@@ -14,6 +15,7 @@ class Home extends Component {
             title="跳转至登录页"
             onPress={() => this.props.navigation.push('Login')}
           />
+
         </View>
       );
     }
