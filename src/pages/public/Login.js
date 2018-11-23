@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {View,Image,TouchableOpacity} from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage,Button,Text } from 'react-native-elements'
 import HttpRequest from '../../utils/HttpRequest'
-import { connect } from 'react-redux';
-import { actionDevice } from '../../redux/actions/DeviceAction'
+// import { connect } from 'react-redux';
+// import { actionDevice } from '../../redux/actions/DeviceAction'
 
 export class Login extends Component {
     static navigationOptions = {
@@ -148,9 +148,11 @@ export class Login extends Component {
     }
 }
 
-function select(store) {
-    return {
-      InitDeviceReducer : store.InitDeviceReducer,
-    }
-}
-export default connect(select)(Login);
+export default Login;
+
+// function select(store) {
+//     return {
+//       InitDeviceReducer : store.InitDeviceReducer,
+//     }
+// }
+// export default connect(select)(Login);
