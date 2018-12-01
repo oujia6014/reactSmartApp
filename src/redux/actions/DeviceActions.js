@@ -1,19 +1,22 @@
 import * as TYPES from '../constants/DeviceTypes';
 
-function increase() {
-    return {type: TYPES.INCREMENT}
+function initDevices(data) {
+    return {type: TYPES.DEVICE_IN_INIT,data}
 }
 
-function deincrease() {
-    return {type: TYPES.DECREMENT}
+function updateDevices() {
+    return {type: TYPES.DEVICE_IN_UPDATE,data}
 }
 
+function sortDevices() {
+    return {type: TYPES.DEVICE_IN_SORT,data}
+}
 function reset() {
-    return {type: TYPES.RESET}
+    return {type: TYPES.DEVICE_IN_RESET}
 }
 
 export {
-    increase,
-    deincrease,
-    reset
+    initDevices,
+    updateDevices,
+    sortDevices
 }

@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
-import count from './DeviceReducer';
+import device from './DeviceReducer';
+import count from './CountReducer'
 
 const rootReducer = combineReducers({
-    countReducer:count
+    countReducer:count,
+    deviceReducer:device
 })
 export default rootReducer;
